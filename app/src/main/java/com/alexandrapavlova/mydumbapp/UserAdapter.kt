@@ -5,8 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
@@ -18,10 +19,12 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //holder.avatarImageView.setImageBitmap(userList[position].avatarUrl)
-        holder.avatarImageView.setImageResource(R.mipmap.ic_launcher_round)
-        holder.usernameTextView.text = userList[position].username
-        holder.groupnameTextView.text = userList[position].groupname
+        Glide.with(holder.avatarImageView)
+            .load(userList[position].avatarUrl)
+            .transform(CircleCrop())
+            .into(holder.avatarImageView)
+        holder.usernameTextView.text = userList[position].userName
+        holder.groupnameTextView.text = userList[position].groupName
     }
 
     override fun getItemCount(): Int {
@@ -31,7 +34,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val avatarImageView   = itemView.findViewById<ImageView>(R.id.avatarImageView)
-        val usernameTextView  = itemView.findViewById<TextView>(R.id.usernameTextView)
-        val groupnameTextView = itemView.findViewById<TextView>(R.id.groupnameTextView)
+        val usernameTextView  = itemView.findViewById<TextView>(R.id.userNameTextView)
+        val groupnameTextView = itemView.findViewById<TextView>(R.id.groupNameTextView)
     }
 }
