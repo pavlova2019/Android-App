@@ -3,6 +3,7 @@ package com.alexandrapavlova.mydumbapp.ui.onboarding
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.alexandrapavlova.mydumbapp.ui.base.BaseFragment
@@ -35,7 +36,29 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.playerView.player = player
         viewBinding.viewPager.setTextPages()
+        viewBinding.viewPager.offscreenPageLimit = 1
+        val recyclerView = viewBinding.viewPager.getChildAt(0) as RecyclerView
+        recyclerView.apply {
+        // setting padding on inner RecyclerView puts overscroll effect in the right place
+        // TODO: expose in later versions not to rely on getChildAt(0) which might break
+            setPadding(140, 0, 140, 0)
+            clipToPadding = false
+        }
         viewBinding.viewPager.attachDots(viewBinding.onboardingTextTabLayout)
+        var volumeFlag = false
+        viewBinding.playerView.player?.volume = 0F
+        viewBinding.volumeControlButton.setOnClickListener{
+            if (volumeFlag) {
+                volumeFlag = false
+                viewBinding.playerView.player?.volume = 0F
+                viewBinding.volumeControlButton.setImageResource(R.drawable.ic_volume_off_white_24dp)
+            }
+            else {
+                volumeFlag = true
+                viewBinding.playerView.player?.volume = 1F
+                viewBinding.volumeControlButton.setImageResource(R.drawable.ic_volume_on_white_24dp)
+            }
+        }
         viewBinding.signInButton.setOnClickListener {
             // TODO: SignInFragment
             Toast.makeText(requireContext(), "Нажата кнопка войти", Toast.LENGTH_SHORT).show()
