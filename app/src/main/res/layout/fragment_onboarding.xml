@@ -15,7 +15,6 @@
         app:surface_type="texture_view"
         app:use_artwork="false"
         app:use_controller="false"
-
         />
 
     <ImageView

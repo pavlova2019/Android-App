@@ -1,4 +1,4 @@
-package com.alexandrapavlova.mydumbapp
+package com.alexandrapavlova.mydumbapp.util
 
 import androidx.navigation.NavController
 import timber.log.Timber
