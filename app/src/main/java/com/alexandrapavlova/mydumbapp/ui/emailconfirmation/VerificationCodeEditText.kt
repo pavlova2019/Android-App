@@ -16,16 +16,16 @@ import kotlin.properties.Delegates
 class VerificationCodeEditText @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
+    defStyleAttr: Int = R.attr.verificationCodeEditStyle,
     defStyleRes: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private val viewBinding =
         ViewVerificationCodeEditTextBinding.inflate(LayoutInflater.from(context), this)
 
-    /*private var numberOfSlots: Int by Delegates.observable(0) {_, _, newValue ->
+    private var numberOfSlots: Int by Delegates.observable(0) {_, _, newValue ->
         // TODO
-    }*/
+    }
 
     private val slotViews: List<VerificationCodeSlotView> =
         listOf(
@@ -79,14 +79,14 @@ class VerificationCodeEditText @JvmOverloads constructor(
         slotValues.fillWith(viewBinding.realVerificationCodeEditText.text)
         slotViews.render(slotValues)
 
-        /*context.theme.obtainStyledAttributes(
+        context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.VerificationCodeEditText,
             defStyleAttr,
             defStyleRes
         ).apply {
             numberOfSlots = getInt(R.styleable.VerificationCodeEditText_vcet_numberOfSlots, 6)
-        }*/
+        }
     }
 
     fun getCode(): String {
