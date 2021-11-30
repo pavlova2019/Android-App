@@ -4,8 +4,8 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.alexandrapavlova.mydumbapp.BuildConfig
-import com.alexandrapavlova.mydumbapp.logBackstack
-import com.alexandrapavlova.mydumbapp.logFragmentHierarchy
+import com.alexandrapavlova.mydumbapp.util.logBackstack
+import com.alexandrapavlova.mydumbapp.util.logFragmentHierarchy
 import timber.log.Timber
 
 open class BaseFragment : Fragment {

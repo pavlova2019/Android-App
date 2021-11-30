@@ -1,6 +1,7 @@
-package com.alexandrapavlova.mydumbapp
+package com.alexandrapavlova.mydumbapp.util
 
 import androidx.fragment.app.Fragment
+import com.alexandrapavlova.mydumbapp.BuildConfig
 import timber.log.Timber
 
 fun Fragment.logFragmentHierarchy(tag: String? = null) {
