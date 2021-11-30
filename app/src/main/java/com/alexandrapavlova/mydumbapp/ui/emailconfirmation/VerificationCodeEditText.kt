@@ -16,7 +16,7 @@ import kotlin.properties.Delegates
 class VerificationCodeEditText @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.attr.verificationCodeEditStyle,
+    defStyleAttr: Int = R.attr.verificationCodeEditTextStyle,
     defStyleRes: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
 

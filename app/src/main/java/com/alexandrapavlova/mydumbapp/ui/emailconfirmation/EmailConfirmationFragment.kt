@@ -10,6 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.alexandrapavlova.mydumbapp.ui.base.BaseFragment
 import com.alexandrapavlova.mydumbapp.R
 import com.alexandrapavlova.mydumbapp.databinding.FragmentEmailConfirmationBinding
+import dev.chrisbanes.insetter.applyInsetter
 
 class EmailConfirmationFragment: BaseFragment(R.layout.fragment_email_confirmation) {
 
@@ -31,6 +32,12 @@ class EmailConfirmationFragment: BaseFragment(R.layout.fragment_email_confirmati
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewBinding.backButton.applyInsetter {
+            type(statusBars = true) { margin() }
+        }
+        viewBinding.emailConfirmationCode.applyInsetter {
+            type(navigationBars = true) { margin() }
+        }
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()
         }

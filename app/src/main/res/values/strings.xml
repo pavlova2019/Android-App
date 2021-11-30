@@ -26,4 +26,5 @@
     <string name="common_back_alert_dialog_text">Введённые данные пропадут</string>
     <string name="common_back_alert_dialog_cancel_button_text">Отмена</string>
     <string name="common_back_alert_dialog_ok_button_text">Ок</string>
+    <string name="email_confirmation_text">Подтвердите почту</string>
 </resources>

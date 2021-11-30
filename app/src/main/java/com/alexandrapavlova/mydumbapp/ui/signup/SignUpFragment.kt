@@ -25,6 +25,7 @@ import com.alexandrapavlova.mydumbapp.ui.base.BaseFragment
 import com.alexandrapavlova.mydumbapp.R
 import com.alexandrapavlova.mydumbapp.databinding.FragmentSignUpBinding
 import com.alexandrapavlova.mydumbapp.util.getSpannedString
+import dev.chrisbanes.insetter.applyInsetter
 import kotlinx.coroutines.launch
 
 class SignUpFragment: BaseFragment(R.layout.fragment_sign_up) {
@@ -47,6 +48,12 @@ class SignUpFragment: BaseFragment(R.layout.fragment_sign_up) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewBinding.backButton.applyInsetter {
+            type(statusBars = true) { margin() }
+        }
+        viewBinding.termsAndConditionsCheckBox.applyInsetter {
+            type(navigationBars = true) { margin() }
+        }
         subscribeToEvents()
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()

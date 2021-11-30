@@ -1,7 +1,7 @@
 package com.alexandrapavlova.mydumbapp.ui.signup
 
 import androidx.lifecycle.viewModelScope
-import com.alexandrapavlova.mydumbapp.repository.AuthRepository
+import com.alexandrapavlova.mydumbapp.repository.AuthRepositoryOld
 import com.alexandrapavlova.mydumbapp.ui.base.BaseViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -25,7 +25,7 @@ class SignUpViewModel: BaseViewModel() {
     ) {
         viewModelScope.launch {
             try {
-                AuthRepository.signUp(
+                AuthRepositoryOld.signUp(
                     firstname,
                     lastname,
                     nickname,

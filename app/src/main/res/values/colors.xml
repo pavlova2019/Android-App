@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#CCCCCC</color>
     <color name="brand_orange">#F7A83E</color>
+    <color name="brand_cyan">#1ECECA</color>
+    <color name="brand_blue">#127ABE</color>
 </resources>

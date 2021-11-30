@@ -20,6 +20,7 @@ import com.alexandrapavlova.mydumbapp.R
 import com.alexandrapavlova.mydumbapp.databinding.FragmentSignInBinding
 import com.alexandrapavlova.mydumbapp.ui.base.BaseFragment
 import com.alexandrapavlova.mydumbapp.util.getSpannedString
+import dev.chrisbanes.insetter.applyInsetter
 
 class SignInFragment: BaseFragment(R.layout.fragment_sign_in) {
 
@@ -41,6 +42,12 @@ class SignInFragment: BaseFragment(R.layout.fragment_sign_in) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewBinding.backButton.applyInsetter {
+            type(statusBars = true) { margin() }
+        }
+        viewBinding.termsAndConditionsCheckBox.applyInsetter {
+            type(navigationBars = true) { margin() }
+        }
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()
         }

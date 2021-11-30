@@ -3,7 +3,7 @@ package com.alexandrapavlova.mydumbapp.repository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-object AuthRepository {
+object AuthRepositoryOld {
     // currently changed between 'true' and 'false' for development purposes
     private val _isAuthorizedFlow = MutableStateFlow(false)
     val isAuthorizedFlow = _isAuthorizedFlow.asStateFlow()
