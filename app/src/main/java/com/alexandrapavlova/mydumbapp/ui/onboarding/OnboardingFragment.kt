@@ -75,6 +75,10 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
         }
     }
 
+    /*override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }*/
+
     override fun onResume() {
         super.onResume()
         player?.play()
