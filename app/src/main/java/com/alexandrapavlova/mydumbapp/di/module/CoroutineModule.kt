@@ -1,6 +1,5 @@
 package com.alexandrapavlova.mydumbapp.di.module
 
-import com.alexandrapavlova.mydumbapp.di.*
 import com.blelocking.di.*
 import dagger.Module
 import dagger.Provides

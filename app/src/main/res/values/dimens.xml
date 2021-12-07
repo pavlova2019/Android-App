@@ -2,6 +2,7 @@
 <resources>
     <dimen name="onboarding_dot_size">8dp</dimen>
     <dimen name="onboarding_dot_size_half">4dp</dimen>
+    <dimen name="onboarding_viewpager_padding">40dp</dimen>
     <dimen name="edit_text_min_height">56dp</dimen>
     <dimen name="edit_text_min_height_sp">56sp</dimen>
     <dimen name="edit_text_corner_radius">10dp</dimen>

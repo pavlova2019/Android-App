@@ -1,3 +1,8 @@
+<!DOCTYPE resources [
+    <!-- Non-breaking space, U+00A0. -->
+    <!ENTITY nbsp "&#160;">
+    ]>
+
 <resources>
     <string name="app_name">My Dumb App</string>
     <string name="onboarding_view_pager_text_1">Осень 2021 г., СПбГУ</string>
@@ -26,5 +31,9 @@
     <string name="common_back_alert_dialog_text">Введённые данные пропадут</string>
     <string name="common_back_alert_dialog_cancel_button_text">Отмена</string>
     <string name="common_back_alert_dialog_ok_button_text">Ок</string>
-    <string name="email_confirmation_text">Подтвердите почту</string>
+    <string name="email_confirmation_text">Введите код подтверждения, который был выслан Вам на почту</string>
+    <string name="email_confirmation_confirm_text">ПОДТВЕРДИТЬ КОД</string>
+    <string name="email_confirmation_email_text">ПЕРЕЙТИ В ПОЧТУ</string>
+    <string name="email_confirmation_get_new_code">Выслать код повторно</string>
+    <string name="email_confirmation_timer">Выслать код повторно через i секунд</string>
 </resources>

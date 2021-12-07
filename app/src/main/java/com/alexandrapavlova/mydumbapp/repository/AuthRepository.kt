@@ -9,18 +9,25 @@ import com.alexandrapavlova.mydumbapp.data.network.response.error.RefreshAuthTok
 import com.alexandrapavlova.mydumbapp.data.network.response.error.SignInWithEmailErrorResponse
 import com.alexandrapavlova.mydumbapp.data.persistent.LocalKeyValueStorage
 import com.alexandrapavlova.mydumbapp.entity.AuthTokens
+import com.blelocking.di.AppCoroutineScope
+import com.blelocking.di.IoCoroutineDispatcher
 import com.haroldadmin.cnradapter.NetworkResponse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import dagger.Lazy
 import javax.inject.Inject
 import timber.log.Timber
+import javax.inject.Singleton
 
+@Singleton
 class AuthRepository @Inject constructor(
-    private val api: Api,
+    private val apiLazy: Lazy<Api>,
     private val localKeyValueStorage: LocalKeyValueStorage,
-    externalCoroutineScope: CoroutineScope,
-    private val ioDispatcher: CoroutineDispatcher
+    @AppCoroutineScope externalCoroutineScope: CoroutineScope,
+    @IoCoroutineDispatcher private val ioDispatcher: CoroutineDispatcher
 ) {
+
+    private val api by lazy { apiLazy.get() }
 
     private val authTokensFlow: Deferred<MutableStateFlow<AuthTokens?>> =
         externalCoroutineScope.async(context = ioDispatcher, start = CoroutineStart.LAZY) {

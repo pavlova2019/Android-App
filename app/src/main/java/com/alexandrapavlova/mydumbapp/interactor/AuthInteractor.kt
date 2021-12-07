@@ -24,9 +24,14 @@ class AuthInteractor @Inject constructor(
             is NetworkResponse.Error -> {
                 Timber.e(response.error)
             }
+            else -> {
+                // TODO: do something ._.
+            }
         }
         return response
     }
+
+
 
     suspend fun logout() {
         authRepository.saveAuthTokens(null)

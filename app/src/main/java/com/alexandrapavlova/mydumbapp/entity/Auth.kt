@@ -1,7 +1,7 @@
 package com.alexandrapavlova.mydumbapp.entity
 
 /**
- * @see [com.ruslankalbaev.ourawesomeapp.data.json.AuthTokensAdapter]
+ * @see [com.alexandrapavlova.mydumbapp.data.json.AuthTokensAdapter]
  */
 data class AuthTokens(
     val accessToken: String,

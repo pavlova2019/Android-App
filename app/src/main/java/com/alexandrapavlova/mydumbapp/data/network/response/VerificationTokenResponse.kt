@@ -1,4 +1,4 @@
-package com.ruslankalbaev.ourawesomeapp.data.network.response
+package com.alexandrapavlova.mydumbapp.data.network.response
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

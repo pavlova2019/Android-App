@@ -3,10 +3,11 @@ package com.alexandrapavlova.mydumbapp.ui.userlist
 import androidx.lifecycle.viewModelScope
 import com.alexandrapavlova.mydumbapp.BuildConfig
 import com.alexandrapavlova.mydumbapp.data.network.Api
-import com.alexandrapavlova.mydumbapp.data.network.response.MockApi
+import com.alexandrapavlova.mydumbapp.data.network.MockApi
 import com.alexandrapavlova.mydumbapp.ui.base.BaseViewModel
 import com.alexandrapavlova.mydumbapp.entity.User
 import com.squareup.moshi.Moshi
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -15,6 +16,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+//@HiltViewModel
 class UserListViewModel : BaseViewModel() {
 
     sealed class ViewState {

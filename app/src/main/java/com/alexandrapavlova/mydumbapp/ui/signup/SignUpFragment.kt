@@ -25,9 +25,11 @@ import com.alexandrapavlova.mydumbapp.ui.base.BaseFragment
 import com.alexandrapavlova.mydumbapp.R
 import com.alexandrapavlova.mydumbapp.databinding.FragmentSignUpBinding
 import com.alexandrapavlova.mydumbapp.util.getSpannedString
+import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applyInsetter
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SignUpFragment: BaseFragment(R.layout.fragment_sign_up) {
 
     private val viewModel: SignUpViewModel by viewModels()
@@ -66,12 +68,12 @@ class SignUpFragment: BaseFragment(R.layout.fragment_sign_up) {
                 email = viewBinding.emailEditText.text?.toString() ?: "",
                 password = viewBinding.passwordEditText.text?.toString() ?: ""
             )
-            findNavController().navigate(R.id.emailConfirmationFragment)
+            // findNavController().navigate(R.id.emailConfirmationFragment)
         }
-        subscribeToFormFields()
         viewBinding.termsAndConditionsCheckBox.setClubRulesText {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://policies.google.com/terms")))
         }
+        subscribeToFormFields()
     }
 
     private fun subscribeToFormFields() {

@@ -47,7 +47,7 @@ class SignInFragment: BaseFragment(R.layout.fragment_sign_in) {
         viewBinding.backButton.applyInsetter {
             type(statusBars = true) { margin() }
         }
-        viewBinding.termsAndConditionsCheckBox.applyInsetter {
+        viewBinding.signInButton.applyInsetter {
             type(navigationBars = true) { margin() }
         }
         viewBinding.backButton.setOnClickListener {
@@ -60,43 +60,29 @@ class SignInFragment: BaseFragment(R.layout.fragment_sign_in) {
             )
         }
         subscribeToFormFields()
-        viewBinding.termsAndConditionsCheckBox.setClubRulesText {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://policies.google.com/terms")))
-        }
     }
 
     private fun subscribeToFormFields() {
         decideSignInButtonEnabledState(
             email = viewBinding.emailEditText.text?.toString(),
-            password = viewBinding.passwordEditText.text?.toString(),
-            termsIsChecked = viewBinding.termsAndConditionsCheckBox.isChecked
+            password = viewBinding.passwordEditText.text?.toString()
         )
         viewBinding.emailEditText.doAfterTextChanged { email ->
             decideSignInButtonEnabledState(
                 email = email?.toString(),
-                password = viewBinding.passwordEditText.text?.toString(),
-                termsIsChecked = viewBinding.termsAndConditionsCheckBox.isChecked
+                password = viewBinding.passwordEditText.text?.toString()
             )
         }
         viewBinding.passwordEditText.doAfterTextChanged { password ->
             decideSignInButtonEnabledState(
                 email = viewBinding.emailEditText.text?.toString(),
-                password = password?.toString(),
-                termsIsChecked = viewBinding.termsAndConditionsCheckBox.isChecked
-            )
-        }
-        viewBinding.termsAndConditionsCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            decideSignInButtonEnabledState(
-                email = viewBinding.emailEditText.text?.toString(),
-                password = viewBinding.passwordEditText.text?.toString(),
-                termsIsChecked = isChecked
+                password = password?.toString()
             )
         }
     }
 
-    private fun decideSignInButtonEnabledState(email: String?, password: String?, termsIsChecked: Boolean) {
-        viewBinding.signInButton.isEnabled = !(email.isNullOrBlank() || password.isNullOrBlank()
-                || !termsIsChecked)
+    private fun decideSignInButtonEnabledState(email: String?, password: String?) {
+        viewBinding.signInButton.isEnabled = !(email.isNullOrBlank() || password.isNullOrBlank())
     }
 
     private fun onBackButtonPressed() {

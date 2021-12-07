@@ -7,9 +7,10 @@ import com.alexandrapavlova.mydumbapp.data.network.request.RefreshAuthTokensRequ
 import com.alexandrapavlova.mydumbapp.data.network.request.SignInWithEmailRequest
 import com.alexandrapavlova.mydumbapp.data.network.response.error.*
 import com.alexandrapavlova.mydumbapp.entity.AuthTokens
+import com.alexandrapavlova.mydumbapp.entity.User
 
 import com.haroldadmin.cnradapter.NetworkResponse
-import com.ruslankalbaev.ourawesomeapp.data.network.response.VerificationTokenResponse
+import com.alexandrapavlova.mydumbapp.data.network.response.VerificationTokenResponse
 
 class MockApi : Api {
     override suspend fun getUsers(): GetUsersResponse {
