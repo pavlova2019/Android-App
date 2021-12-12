@@ -2,8 +2,11 @@ package com.alexandrapavlova.mydumbapp.ui.emailconfirmation
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -17,6 +20,20 @@ class EmailConfirmationFragment: BaseFragment(R.layout.fragment_email_confirmati
     private val viewModel: EmailConfirmationViewModel by viewModels()
 
     private val viewBinding by viewBinding(FragmentEmailConfirmationBinding::bind)
+    private var email: String? = null
+
+    private val timer = object: CountDownTimer(20000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            viewBinding.emailConfirmationCodeTimer.isVisible = true
+            val sec = millisUntilFinished/1000
+            viewBinding.emailConfirmationCodeTimer.text = "Выслать код повторно через $sec секунд"
+        }
+
+        override fun onFinish() {
+            viewBinding.emailConfirmationCodeTimer.isVisible = false
+            viewBinding.emailConfirmationGetNewCode.isEnabled = true
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +55,23 @@ class EmailConfirmationFragment: BaseFragment(R.layout.fragment_email_confirmati
         viewBinding.emailConfirmationCode.applyInsetter {
             type(navigationBars = true) { margin() }
         }
+        setFragmentResultListener("SignUpFragmentEmail") { _, bundle ->
+            email = bundle.get("SignUpFragmentBundle").toString()
+            email?.let { getNewCode()}
+        }
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()
         }
+        viewBinding.emailConfirmationGetNewCode.setOnClickListener {
+            email?.let { getNewCode() }
+        }
+
+    }
+
+    private fun getNewCode() {
+        viewBinding.emailConfirmationGetNewCode.isEnabled = false
+        timer.start()
+        email?.let { viewModel.getNewCode(it) }
     }
 
     private fun onBackButtonPressed() {

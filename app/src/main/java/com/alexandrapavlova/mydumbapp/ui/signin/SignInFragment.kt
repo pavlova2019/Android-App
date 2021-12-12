@@ -1,5 +1,7 @@
 package com.alexandrapavlova.mydumbapp.ui.signin
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
@@ -8,6 +10,8 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationSet
 import android.widget.CheckBox
 import androidx.activity.OnBackPressedCallback
 import androidx.core.text.buildSpannedString
@@ -50,6 +54,7 @@ class SignInFragment: BaseFragment(R.layout.fragment_sign_in) {
         viewBinding.signInButton.applyInsetter {
             type(navigationBars = true) { margin() }
         }
+        animLogo()
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()
         }
@@ -128,6 +133,20 @@ class SignInFragment: BaseFragment(R.layout.fragment_sign_in) {
                     }
                 }
             )
+    }
+
+    private fun animLogo() {
+        val animX = ObjectAnimator.ofFloat(
+            viewBinding.mknLogoImageView,
+            "scaleX",
+            1F, 1.1F, 1F
+        )
+        animX.repeatCount = Animation.INFINITE
+
+        val set = AnimatorSet()
+        set.play(animX)
+        set.duration = 1000
+        set.start()
     }
 
 }

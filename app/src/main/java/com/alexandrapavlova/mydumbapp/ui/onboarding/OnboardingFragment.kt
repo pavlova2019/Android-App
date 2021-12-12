@@ -1,6 +1,7 @@
 package com.alexandrapavlova.mydumbapp.ui.onboarding
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -24,6 +25,10 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
     private val viewBinding by viewBinding(FragmentOnboardingBinding::bind)
 
     private var player : ExoPlayer? = null
+
+    private var userTouch = false
+    private var stopTimer = false
+    private var page = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,19 +86,59 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
 
     override fun onResume() {
         super.onResume()
+        startScroll()
         player?.play()
     }
 
     override fun onPause() {
         super.onPause()
+        stopTimer = true
         player?.pause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        stopTimer = true
         player?.release()
     }
 
+    private fun timer() : CountDownTimer = object: CountDownTimer(4000, 100) {
+        override fun onTick(millisUntilFinished: Long) {
+            if (stopTimer) {
+                cancel()
+            }
+            if (userTouch) {
+                userTouch = false
+                cancel()
+                timer().start()
+            }
+        }
+
+        override fun onFinish() {
+            if (!stopTimer) {
+                page += 1
+                if (viewBinding.viewPager.adapter?.itemCount == page) {
+                    page = 0
+                }
+                viewBinding.viewPager.setCurrentItem(page, true)
+                timer().start()
+            }
+        }
+    }
+
+    private fun startScroll() {
+        stopTimer = false
+        timer().start()
+        viewBinding.viewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    userTouch = true
+                    page = position
+                }
+            }
+        )
+    }
 
     private fun ViewPager2.setTextPages() {
         adapter =

@@ -12,8 +12,10 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.CheckBox
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.core.text.buildSpannedString
 import androidx.core.text.inSpans
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -56,6 +58,7 @@ class SignUpFragment: BaseFragment(R.layout.fragment_sign_up) {
         viewBinding.termsAndConditionsCheckBox.applyInsetter {
             type(navigationBars = true) { margin() }
         }
+
         subscribeToEvents()
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()
@@ -177,6 +180,12 @@ class SignUpFragment: BaseFragment(R.layout.fragment_sign_up) {
                 viewModel.eventsFlow().collect { event ->
                     when (event) {
                         is SignUpViewModel.Event.SignUpEmailConfirmationRequired -> {
+                            setFragmentResult(
+                                "SignUpFragmentEmail", bundleOf(
+                                    "SignUpFragmentBundle" to
+                                        viewBinding.emailEditText.text.toString()
+                                )
+                            )
                             findNavController().navigate(R.id.emailConfirmationFragment)
                         }
                         else -> {
