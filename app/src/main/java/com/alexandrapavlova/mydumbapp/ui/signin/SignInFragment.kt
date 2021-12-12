@@ -1,5 +1,7 @@
 package com.alexandrapavlova.mydumbapp.ui.signin
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
@@ -8,6 +10,8 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationSet
 import android.widget.CheckBox
 import androidx.activity.OnBackPressedCallback
 import androidx.core.text.buildSpannedString
@@ -20,8 +24,10 @@ import com.alexandrapavlova.mydumbapp.R
 import com.alexandrapavlova.mydumbapp.databinding.FragmentSignInBinding
 import com.alexandrapavlova.mydumbapp.ui.base.BaseFragment
 import com.alexandrapavlova.mydumbapp.util.getSpannedString
+import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applyInsetter
 
+@AndroidEntryPoint
 class SignInFragment: BaseFragment(R.layout.fragment_sign_in) {
 
     private val viewModel: SignInViewModel by viewModels()
@@ -45,9 +51,10 @@ class SignInFragment: BaseFragment(R.layout.fragment_sign_in) {
         viewBinding.backButton.applyInsetter {
             type(statusBars = true) { margin() }
         }
-        viewBinding.termsAndConditionsCheckBox.applyInsetter {
+        viewBinding.signInButton.applyInsetter {
             type(navigationBars = true) { margin() }
         }
+        animLogo()
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()
         }
@@ -58,43 +65,29 @@ class SignInFragment: BaseFragment(R.layout.fragment_sign_in) {
             )
         }
         subscribeToFormFields()
-        viewBinding.termsAndConditionsCheckBox.setClubRulesText {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://policies.google.com/terms")))
-        }
     }
 
     private fun subscribeToFormFields() {
         decideSignInButtonEnabledState(
             email = viewBinding.emailEditText.text?.toString(),
-            password = viewBinding.passwordEditText.text?.toString(),
-            termsIsChecked = viewBinding.termsAndConditionsCheckBox.isChecked
+            password = viewBinding.passwordEditText.text?.toString()
         )
         viewBinding.emailEditText.doAfterTextChanged { email ->
             decideSignInButtonEnabledState(
                 email = email?.toString(),
-                password = viewBinding.passwordEditText.text?.toString(),
-                termsIsChecked = viewBinding.termsAndConditionsCheckBox.isChecked
+                password = viewBinding.passwordEditText.text?.toString()
             )
         }
         viewBinding.passwordEditText.doAfterTextChanged { password ->
             decideSignInButtonEnabledState(
                 email = viewBinding.emailEditText.text?.toString(),
-                password = password?.toString(),
-                termsIsChecked = viewBinding.termsAndConditionsCheckBox.isChecked
-            )
-        }
-        viewBinding.termsAndConditionsCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            decideSignInButtonEnabledState(
-                email = viewBinding.emailEditText.text?.toString(),
-                password = viewBinding.passwordEditText.text?.toString(),
-                termsIsChecked = isChecked
+                password = password?.toString()
             )
         }
     }
 
-    private fun decideSignInButtonEnabledState(email: String?, password: String?, termsIsChecked: Boolean) {
-        viewBinding.signInButton.isEnabled = !(email.isNullOrBlank() || password.isNullOrBlank()
-                || !termsIsChecked)
+    private fun decideSignInButtonEnabledState(email: String?, password: String?) {
+        viewBinding.signInButton.isEnabled = !(email.isNullOrBlank() || password.isNullOrBlank())
     }
 
     private fun onBackButtonPressed() {
@@ -140,6 +133,20 @@ class SignInFragment: BaseFragment(R.layout.fragment_sign_in) {
                     }
                 }
             )
+    }
+
+    private fun animLogo() {
+        val animX = ObjectAnimator.ofFloat(
+            viewBinding.mknLogoImageView,
+            "scaleX",
+            1F, 1.1F, 1F
+        )
+        animX.repeatCount = Animation.INFINITE
+
+        val set = AnimatorSet()
+        set.play(animX)
+        set.duration = 1000
+        set.start()
     }
 
 }

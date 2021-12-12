@@ -15,7 +15,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.alexandrapavlova.mydumbapp.ui.base.BaseFragment
 import com.alexandrapavlova.mydumbapp.R
 import com.alexandrapavlova.mydumbapp.databinding.FragmentUserListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+//@AndroidEntryPoint
 class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
 
     private lateinit var viewModel: UserListViewModel

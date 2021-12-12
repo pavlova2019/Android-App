@@ -25,7 +25,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
             .load(userList[position].avatarUrl)
             .transform(CircleCrop())
             .into(holder.avatarImageView)
-        holder.usernameTextView.text = userList[position].userName
+        holder.usernameTextView.text = userList[position].firstName
         holder.groupnameTextView.text = userList[position].groupName
     }
 

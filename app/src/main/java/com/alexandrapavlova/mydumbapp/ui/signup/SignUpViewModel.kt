@@ -1,14 +1,20 @@
 package com.alexandrapavlova.mydumbapp.ui.signup
 
 import androidx.lifecycle.viewModelScope
+import com.alexandrapavlova.mydumbapp.interactor.AuthInteractor
 import com.alexandrapavlova.mydumbapp.repository.AuthRepositoryOld
 import com.alexandrapavlova.mydumbapp.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignUpViewModel: BaseViewModel() {
+@HiltViewModel
+class SignUpViewModel @Inject constructor(
+    private val authInteractor: AuthInteractor
+) : BaseViewModel() {
 
     private val _eventChannel = Channel<Event>(Channel.BUFFERED)
 

@@ -12,8 +12,10 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.CheckBox
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.core.text.buildSpannedString
 import androidx.core.text.inSpans
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -25,9 +27,11 @@ import com.alexandrapavlova.mydumbapp.ui.base.BaseFragment
 import com.alexandrapavlova.mydumbapp.R
 import com.alexandrapavlova.mydumbapp.databinding.FragmentSignUpBinding
 import com.alexandrapavlova.mydumbapp.util.getSpannedString
+import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applyInsetter
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SignUpFragment: BaseFragment(R.layout.fragment_sign_up) {
 
     private val viewModel: SignUpViewModel by viewModels()
@@ -54,6 +58,7 @@ class SignUpFragment: BaseFragment(R.layout.fragment_sign_up) {
         viewBinding.termsAndConditionsCheckBox.applyInsetter {
             type(navigationBars = true) { margin() }
         }
+
         subscribeToEvents()
         viewBinding.backButton.setOnClickListener {
             onBackButtonPressed()
@@ -66,12 +71,12 @@ class SignUpFragment: BaseFragment(R.layout.fragment_sign_up) {
                 email = viewBinding.emailEditText.text?.toString() ?: "",
                 password = viewBinding.passwordEditText.text?.toString() ?: ""
             )
-            findNavController().navigate(R.id.emailConfirmationFragment)
+            // findNavController().navigate(R.id.emailConfirmationFragment)
         }
-        subscribeToFormFields()
         viewBinding.termsAndConditionsCheckBox.setClubRulesText {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://policies.google.com/terms")))
         }
+        subscribeToFormFields()
     }
 
     private fun subscribeToFormFields() {
@@ -175,6 +180,12 @@ class SignUpFragment: BaseFragment(R.layout.fragment_sign_up) {
                 viewModel.eventsFlow().collect { event ->
                     when (event) {
                         is SignUpViewModel.Event.SignUpEmailConfirmationRequired -> {
+                            setFragmentResult(
+                                "SignUpFragmentEmail", bundleOf(
+                                    "SignUpFragmentBundle" to
+                                        viewBinding.emailEditText.text.toString()
+                                )
+                            )
                             findNavController().navigate(R.id.emailConfirmationFragment)
                         }
                         else -> {

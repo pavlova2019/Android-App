@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="@string/email_confirmation_text"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backButton"
@@ -31,7 +31,7 @@
 
     <com.alexandrapavlova.mydumbapp.ui.emailconfirmation.VerificationCodeEditText
         android:id="@+id/emailConfirmationCode"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,5 +39,55 @@
         app:layout_constraintTop_toBottomOf="@id/emailConfirmationText"
         />
         <!-- app:vcet_numberOfSlots="6" -->
+
+    <TextView
+        android:id="@+id/emailConfirmationGetNewCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/email_confirmation_get_new_code"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailConfirmationCode"
+        />
+
+    <TextView
+        android:id="@+id/emailConfirmationCodeTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/email_confirmation_timer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailConfirmationGetNewCode"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/emailConfirmationConfirmButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/email_confirmation_confirm_text"
+        app:layout_constraintBottom_toTopOf="@id/emailConfirmationEmailButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MyDumbApp.Button.Cyan"
+        android:id="@+id/emailConfirmationEmailButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="48dp"
+        android:text="@string/email_confirmation_email_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
